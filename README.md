@@ -12,7 +12,7 @@
 
 <p align="center">
   <a href="https://www.youtube.com/@jpthehero">YouTube</a> ·
-  <a href="https://www.patreon.com/c/gamerjp">Patreon</a> ·
+  <a href="www.patreon.com/collection/1453625">Patreon</a> ·
   <a href="https://discord.gg/uBTutBA8VX">Discord</a>
 </p>
 
