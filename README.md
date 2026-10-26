@@ -264,12 +264,6 @@ Some of my God of War Ragnarök mods, all running through the mod manager:
 
 ![My mods](images/mods_showcase.jpg)
 
-Deadpool on Kratos (left) and on Freya (right), in game:
-
-![Deadpool Kratos and Freya](images/ingame_deadpool_kratos_and_freya.jpg)
-
-![Deadpool Freya close-up](images/ingame_deadpool_freya_closeup.jpg)
-
 Videos, new mods and tutorials: **[YouTube](https://www.youtube.com/@jpthehero)** ·
 support me on **[Patreon](https://www.patreon.com/c/gamerjp)** ·
 join the **[Discord](https://discord.gg/uBTutBA8VX)**.
