@@ -197,8 +197,6 @@ Use straight double quotes and no comma after the last field.
 
 ## Merging wads
 
-<img src="images/manager_merge_buttons.png" alt="MERGE WADS and DELETE MERGED WADS" width="320" align="right">
-
 Kratos and all his weapons are stored in **one** file, `r_heroa00.wad`. So a Kratos outfit mod and a
 Kratos weapon mod normally cannot run together: only the lower one in the load order loads.
 **MERGE WADS** fixes that.
@@ -209,10 +207,20 @@ Kratos weapon mod normally cannot run together: only the lower one in the load o
 4. **Keep the original mods switched on**: their texture and geometry packs still load from their own
    folders. Only the shared `.wad` comes from Merged Wads.
 
+![MERGE WADS result: God of War 3 Kratos + Minecraft Weapons merged](images/manager_merge_buttons.png)
+
+The conflict warnings under the cards stay after a merge. That is expected: **Merged Wads** is last in
+the load order, so its `.wad` is the one the game gets.
+
 How it works: the manager starts from the game's own `.wad` and copies in every part each mod changed,
 entry by entry (the outfit and the weapons are different entries, so nothing overlaps). If two mods
 changed the same data, the later one in the load order wins there and the result window warns you.
 The merged `.wad` is written into the **Merged Wads** mod folder; the game files and your mods stay as they are.
+
+To undo it, click **DELETE MERGED WADS** (lit amber while a merge exists). It asks first and deletes only
+the **Merged Wads** mod:
+
+![DELETE MERGED WADS confirmation](images/manager_deletemerge_buttons.png)
 
 | Good to know | |
 |---|---|
@@ -221,8 +229,6 @@ The merged `.wad` is written into the **Merged Wads** mod folder; the game files
 | Remove the merge | **DELETE MERGED WADS** (lit amber while a merge exists), or switch **Merged Wads** off. |
 | Keep several merges | Rename the `Merged Wads` folder: it stays as a normal mod, and the next click makes a new one. |
 | Mods made on an older game version | Work too: such a mod's whole `.wad` becomes the starting point and the other mods' changes are copied into it. Only **one** of the merged mods may come from an older game version (or have added / resized entries). The result window says when a merge is not possible. |
-
-<br clear="right">
 
 ## Settings
 
