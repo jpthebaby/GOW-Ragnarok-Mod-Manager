@@ -12,7 +12,7 @@
 
 <p align="center">
   <a href="https://www.youtube.com/@jpthehero">YouTube</a> ·
-  <a href="www.patreon.com/collection/1453625">Patreon</a> ·
+  <a href="https://www.patreon.com/c/gamerjp">Patreon</a> ·
   <a href="https://discord.gg/uBTutBA8VX">Discord</a>
 </p>
 
@@ -30,6 +30,7 @@
 - [Adding mods](#adding-mods)
 - [mod.json](#modjson)
 - [Load order and conflicts](#load-order-and-conflicts)
+- [Merging wads](#merging-wads)
 - [Settings](#settings)
 - [How the loader works](#how-the-loader-works)
 - [Uninstall](#uninstall)
@@ -65,6 +66,8 @@ Everything ships as **one exe**.
 - **Load order window**: drag the mods into order. The number on every card shows its place.
 - **Conflict warnings** when two enabled mods replace the same `.wad` (the later one in the load
   order wins).
+- **MERGE WADS**: play two mods that share one `.wad` together, for example a Kratos outfit mod and a
+  Kratos weapon mod (both live in `r_heroa00.wad`). See [Merging wads](#merging-wads).
 - **Search and categories**: filter by name or by character (Kratos, Freya, ...).
 - **All / Enabled / Disabled** views.
 - **Mods folder anywhere**: keep your mods on any drive, set it once in Settings.
@@ -112,6 +115,8 @@ Everything ships as **one exe**.
 | **LOAD ORDER** | Open the load order window. |
 | **Mod card** | Click to select. The switch turns the mod on or off. The small number is its load order. |
 | **Right panel** | Preview, author, version, file count, description and notes of the selected mod. |
+| **MERGE WADS** | Merges every `.wad` that two or more enabled mods replace into one **Merged Wads** mod. |
+| **DELETE MERGED WADS** | Deletes the **Merged Wads** mod (asks first). Lit amber while a merge exists. |
 | **OPEN MODS FOLDER** | Opens your mods folder in Explorer. |
 | **DELETE ALL MODS** | Deletes every mod folder permanently (asks first). |
 | **INSTALL / UPDATE / REMOVE LOADER** | Puts the loader next to `GoWR.exe`, updates it, or removes it. |
@@ -188,6 +193,36 @@ Use straight double quotes and no comma after the last field.
   **lower** one wins. The manager shows a warning under the mod cards, and the load order window
   marks those mods with **conflict**.
 - Drag a row, or select it and use **MOVE UP / MOVE DOWN**, then **SAVE ORDER**.
+- Want both? Use **MERGE WADS** (next section).
+
+## Merging wads
+
+<img src="images/manager_merge_buttons.png" alt="MERGE WADS and DELETE MERGED WADS" width="320" align="right">
+
+Kratos and all his weapons are stored in **one** file, `r_heroa00.wad`. So a Kratos outfit mod and a
+Kratos weapon mod normally cannot run together: only the lower one in the load order loads.
+**MERGE WADS** fixes that.
+
+1. Switch on the mods you want to play together (for example *God of War 3 Kratos* + *Minecraft Weapons*).
+2. Click **MERGE WADS**. The manager shows what it merged.
+3. A new mod, **Merged Wads**, appears. It is switched on and placed last in the load order.
+4. **Keep the original mods switched on**: their texture and geometry packs still load from their own
+   folders. Only the shared `.wad` comes from Merged Wads.
+
+How it works: the manager starts from the game's own `.wad` and copies in every part each mod changed,
+entry by entry (the outfit and the weapons are different entries, so nothing overlaps). If two mods
+changed the same data, the later one in the load order wins there and the result window warns you.
+The merged `.wad` is written into the **Merged Wads** mod folder; the game files and your mods stay as they are.
+
+| Good to know | |
+|---|---|
+| One merge at a time | Every click rebuilds **Merged Wads** from the mods that are switched on **now**. Switch on everything you want merged (all characters) before you click. |
+| Changed a mod? | Click **MERGE WADS** again after you add, update, switch off or reorder a merged mod. |
+| Remove the merge | **DELETE MERGED WADS** (lit amber while a merge exists), or switch **Merged Wads** off. |
+| Keep several merges | Rename the `Merged Wads` folder: it stays as a normal mod, and the next click makes a new one. |
+| Mods made on an older game version | Work too: such a mod's whole `.wad` becomes the starting point and the other mods' changes are copied into it. Only **one** of the merged mods may come from an older game version (or have added / resized entries). The result window says when a merge is not possible. |
+
+<br clear="right">
 
 ## Settings
 
@@ -233,7 +268,9 @@ GoWR.exe starts
 |---|---|
 | A mod does not show in the game | Is the status **Loader active**? Is the mod switched on? Check `mods\_loader\log.txt`. |
 | "Loader update" in the status | Click **UPDATE LOADER** (a newer loader is inside the manager). |
-| Two mods for the same character | Only the lower one in the load order shows. Switch one off or reorder. |
+| Two mods for the same character | Only the lower one in the load order shows. Switch one off, reorder, or use **MERGE WADS** (for example outfit + weapon mod). |
+| MERGE WADS: "not merged" | Read the reason in the window. Two mods both made on an older game version can't be merged on one `.wad`: use one of them. |
+| A merged mod looks old after an update | Click **MERGE WADS** again: Merged Wads is a copy made at the time of the click. |
 | Game crashes after a game update | Wad mods are tied to the game build. Switch them off and ask the mod author for an update. |
 | Mods were installed the old way before | Verify the game files in Steam, then use the manager. |
 | Antivirus / SmartScreen warning | The exe and loader are not code-signed. Allow them, or build them yourself from source. |
@@ -251,6 +288,12 @@ Yes. Set the mods folder in **Settings**.
 Yes. Mods that shipped a replaced `.wad` and a `boot-options.json` work as they are: copy the mod
 folder into your mods folder.
 
+**Can I play a Kratos outfit mod and a Kratos weapon mod together?**
+Yes. Switch both on and click **MERGE WADS**.
+
+**Does MERGE WADS change my mods or game files?**
+No. It reads them and writes a new **Merged Wads** mod. Delete it any time with **DELETE MERGED WADS**.
+
 **Why is the loader called `version.dll`?**
 The game loads `version.dll` from its own folder at start. That is how the loader gets in without
 changing `GoWR.exe`.
@@ -264,6 +307,12 @@ Some of my God of War Ragnarök mods, all running through the mod manager:
 
 ![My mods](images/mods_showcase.jpg)
 
+Deadpool on Kratos (left) and on Freya (right), in game:
+
+![Deadpool Kratos and Freya](images/ingame_deadpool_kratos_and_freya.jpg)
+
+![Deadpool Freya close-up](images/ingame_deadpool_freya_closeup.jpg)
+
 Videos, new mods and tutorials: **[YouTube](https://www.youtube.com/@jpthehero)** ·
 support me on **[Patreon](https://www.patreon.com/c/gamerjp)** ·
 join the **[Discord](https://discord.gg/uBTutBA8VX)**.
@@ -276,7 +325,10 @@ join the **[Discord](https://discord.gg/uBTutBA8VX)**.
 | Mod manager (exe) | `loader/manager_wpf/ModManager.cs` (C# / WPF, .NET Framework 4) | `loader/manager_wpf/build.bat` |
 
 `manager_wpf/build.bat` builds the loader first, then the manager with the loader, background, logo
-and font embedded. A self-test for the loader is in `loader/test/run_test.ps1`.
+and font embedded. A self-test for the loader is in `loader/test/run_test.ps1`; the MERGE WADS tests are
+`loader/manager_wpf/test/check_merge.py` and `check_merge_real.py` (built by `test/build_merge_test.bat`).
+Without Visual Studio, the manager also builds with the C# compiler that comes with Windows
+(`C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe`, same arguments as `build.bat`).
 
 ## Credits and disclaimer
 
